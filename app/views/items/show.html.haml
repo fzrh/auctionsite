@@ -1,0 +1,26 @@
+.col-md-10.col-md-offset-1
+  %h1 #{@item.title}
+  %p #{@item.description}
+  %p 
+    Base Price:
+    %span{style: 'font-weight: bold;' } MYR #{@item.base_price}
+  .form-group
+    = form_for @bid, url: item_bids_path(@item) do |f|
+      .row
+        .col-sm-2
+          Place Bid:
+        .col-sm-2
+          = f.text_field :amount, placeholder: '1.00', class: 'form-control'
+        .col-sm-2
+          = f.submit 'Bid', class: 'btn btn-success'
+  %section
+    %p{style: 'font-weight: bold;'} Bids (newest first):
+    - if @item_bids.any?
+      - @item_bids.each do |item_bid|
+        %ul
+          %li 
+            %span MYR #{item_bid.amount} by
+            %span{style: 'font-weight: bold;'} #{item_bid.user.email} 
+            %span on #{item_bid.created_at.strftime('%d %b %y, %I.%M%P')}
+  %section{style: 'margin-top: 25px;'}
+    = link_to 'Back', root_path, class: 'btn btn-default'

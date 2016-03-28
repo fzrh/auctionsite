@@ -1,9 +1,18 @@
-%h1 Pages#index
-%p Find me in app/views/pages/index.html.haml
-
-- if user_signed_in?
-  = link_to 'Logout', destroy_user_session_path, method: :delete
-- else
-  = link_to 'Register', new_user_registration_path
-  %br
-  = link_to 'Login', new_user_session_path
+.row
+  %section.col-md-10.col-md-offset-1
+    %h1 Pages#index
+    %p Find me in app/views/pages/index.html.haml
+    - if user_signed_in?
+      = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-warning'
+    - else
+      = link_to 'Register', new_user_registration_path, class: 'btn btn-primary'
+      = link_to 'Login', new_user_session_path, class: 'btn btn-info'
+  %section.col-md-10.col-md-offset-1{style: 'margin-top: 25px;'}
+    %p{style: 'font-weight: bold;'} Active Listings (newest first):
+    - if @items.any?
+      - @items.each do |item|
+        %ul.list-unstyled
+          %li
+            = link_to item_path(item) do
+              = item.title
+              = item.base_price
