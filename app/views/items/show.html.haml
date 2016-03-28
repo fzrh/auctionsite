@@ -1,7 +1,9 @@
 .col-md-10.col-md-offset-1
-  %h1 #{@item.title}
-  %p #{@item.description}
-  %p 
+  %section{style: 'margin-bottom: 25px;'}
+    %h1 #{@item.title}
+    %p #{@item.description}
+    %span{style: 'font-size: 14px; font-weight: bold;'} Listed by #{@item.user.email} on #{@item.created_at.strftime('%d-%b-%y, %I.%M%P')}
+  %p
     Base Price:
     %span{style: 'font-weight: bold;' } MYR #{@item.base_price}
   .form-group
@@ -13,7 +15,7 @@
           = f.text_field :amount, placeholder: '1.00', class: 'form-control'
         .col-sm-2
           = f.submit 'Bid', class: 'btn btn-success'
-  .p Current Price: (pending)
+  %p Current Price: (pending)
   %section{style: 'margin-top: 25px;'}
     %p{style: 'font-weight: bold;'} Bids (newest first):
     - if @item_bids.any?

@@ -12,7 +12,7 @@ class BidsController < ApplicationController
     if @bid.save
       redirect_to item_path(@item)
     else
-      render
+      redirect_to item_path(@item), error: 'Bid cannot be saved'
     end
   end
 
