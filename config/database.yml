@@ -1,0 +1,20 @@
+# PostgreSQL. Versions 8.2 and up are supported.
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+test:
+  <<: *default
+  database: carbay_test
+
+development:
+  <<: *default
+  database: carbay_dev
+
+production:
+  <<: *default
+  database: carbay_production
+  username: carbay
+  password: <%= ENV['CARBAY_DATABASE_PASSWORD'] %>
