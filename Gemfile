@@ -9,6 +9,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'haml-rails', '~> 0.9'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'font-awesome-sass', '~> 4.5.0'
 
 gem 'jbuilder', '~> 2.0'
 gem 'puma'
