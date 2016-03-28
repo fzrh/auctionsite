@@ -13,7 +13,8 @@
           = f.text_field :amount, placeholder: '1.00', class: 'form-control'
         .col-sm-2
           = f.submit 'Bid', class: 'btn btn-success'
-  %section
+  .p Current Price: (pending)
+  %section{style: 'margin-top: 25px;'}
     %p{style: 'font-weight: bold;'} Bids (newest first):
     - if @item_bids.any?
       - @item_bids.each do |item_bid|
@@ -24,3 +25,5 @@
             %span on #{item_bid.created_at.strftime('%d %b %y, %I.%M%P')}
   %section{style: 'margin-top: 25px;'}
     = link_to 'Back', root_path, class: 'btn btn-default'
+    - if current_user && @item.user
+      = link_to 'Edit', edit_item_path(@item), class: 'btn btn-warning'
