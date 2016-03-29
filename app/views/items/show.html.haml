@@ -28,6 +28,6 @@
             %span{style: 'font-weight: bold;'} #{item_bid.user.email} 
             %span on #{item_bid.created_at.strftime('%d %b %y, %I.%M%P')}
   %section{style: 'margin-top: 25px;'}
-    - if current_user && @item.user
+    - if current_user && current_user.id == @item.user.id 
       = link_to 'Edit', edit_item_path(@item), class: 'btn btn-warning'
     = link_to 'Back', root_path, class: 'btn btn-default'
