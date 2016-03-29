@@ -8,5 +8,8 @@
   .form-group
     = f.label :base_price
     = f.text_field :base_price, placeholder: 'item base price', class: 'form-control'
+  .form-group
+    = f.label 'Listing Ends'
+    = f.date_select :expire_date, class: 'form-control'
   = f.submit class: 'btn btn-success'
   = link_to 'Back', root_path, class: 'btn btn-default'

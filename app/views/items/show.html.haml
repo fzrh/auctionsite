@@ -5,22 +5,31 @@
     %span{style: 'font-size: 14px; font-weight: bold;'} Listed by #{@item.user.email} on #{@item.created_at.strftime('%d-%b-%y, %I.%M%P')}
   %p
     Base Price:
-    %span{style: 'font-weight: bold;' } MYR #{@item.base_price}
+    %span{style: 'font-weight: bold;'} MYR #{@item.base_price}
   %p
     Current Price: 
-    %span{style: 'font-weight: bold;' } MYR #{@item.final_price}
-  .form-group
-    = form_for @bid, url: item_bids_path(@item) do |f|
-      .row
-        .col-sm-2
-          Place Bid:
-        .col-sm-2
-          = f.text_field :amount, placeholder: '1.00', class: 'form-control'
-        .col-sm-2
-          = f.submit 'Bid', class: 'btn btn-success'
+    %span{style: 'font-weight: bold;'} MYR #{@item.final_price}
+    (#{@item.bids.count} bids)
+  - unless @item.expire_date < Time.now
+    .form-group
+      = form_for @bid, url: item_bids_path(@item) do |f|
+        .row
+          .col-sm-2.col-xs-3
+            Place Bid:
+          .col-sm-2.col-xs-3
+            = f.text_field :amount, placeholder: '1.00', class: 'form-control'
+          .col-sm-2.col-xs-2
+            = f.submit 'Bid', class: 'btn btn-success'
+  %p 
+    - if @item.expire_date > Time.now
+      Time Left: 
+      %span{style: 'font-weight: bold; color: red;'} #{distance_of_time_in_words(Time.now, @item.expire_date, include_seconds: true)} 
+    - else
+      %span{style: 'font-weight: bold; color: red;'} Ended
+    %span{style: 'font-size: 14px;'} (#{@item.expire_date.strftime('%d-%b-%y, %I.%M%P')})
   %section{style: 'margin-top: 25px;'}
-    %p{style: 'font-weight: bold;'} Bids (newest first):
     - if @item_bids.any?
+      %p{style: 'font-weight: bold;'} Bids (newest first):
       - @item_bids.each do |item_bid|
         %ul
           %li 

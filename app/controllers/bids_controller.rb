@@ -9,7 +9,6 @@ class BidsController < ApplicationController
     @item = Item.find(params[:item_id])
     @bid = @item.bids.new(bid_params)
     @bid.user_id = current_user.id
-    @previous_bid = Bid.first
     if @bid.save
       redirect_to item_path(@item), notice: 'Bid saved!'
     else
