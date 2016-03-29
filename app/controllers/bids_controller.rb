@@ -10,11 +10,10 @@ class BidsController < ApplicationController
     @bid = @item.bids.new(bid_params)
     @bid.user_id = current_user.id
     @previous_bid = Bid.first
-    if @bid.amount.to_i > @previous_bid.amount.to_i
-      @bid.save
+    if @bid.save
       redirect_to item_path(@item), notice: 'Bid saved!'
     else
-      redirect_to item_path(@item), error: 'Bid cannot be saved!'
+      redirect_to item_path(@item), error: 'Bid cannot be saved'
     end
   end
 
