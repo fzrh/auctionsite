@@ -7,4 +7,6 @@ class Item < ActiveRecord::Base
   validates :end_date, presence: true
 
   default_scope -> { order('items.created_at DESC') }
+  scope :current, -> { where('end_date >= ?', Time.now) }
+  scope :ended, -> { where('end_date <= ?', Time.now) }
 end

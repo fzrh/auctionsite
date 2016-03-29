@@ -10,8 +10,18 @@
       = link_to 'Login', new_user_session_path, class: 'btn btn-info'
   %section.col-md-10.col-md-offset-1{style: 'margin-top: 25px; margin-bottom: 25px;'}
     %p{style: 'font-weight: bold;'} Active Listings (newest first):
-    - if @items.any?
-      - @items.in_groups_of(3) do |group|
+    - if @current_listings.any?
+      - @current_listings.in_groups_of(3) do |group|
+        .row
+          - group.compact.each do |item|
+            .col-md-4{style: 'padding: 10px; text-align: center;'}
+              = link_to item_path(item) do
+                %article #{image_tag 'default-thumb.gif'}
+                %article{style: 'padding-top: 5px;'} #{item.title}
+  %section.col-md-10.col-md-offset-1{style: 'margin-top: 25px; margin-bottom: 25px;'}
+    %p{style: 'font-weight: bold;'} Expired Listings (newest first):
+    - if @ended_listings.any?
+      - @ended_listings.in_groups_of(3) do |group|
         .row
           - group.compact.each do |item|
             .col-md-4{style: 'padding: 10px; text-align: center;'}

@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
-    @items = Item.all
+    @current_listings = Item.current
+    @ended_listings = Item.ended
   end
 end
