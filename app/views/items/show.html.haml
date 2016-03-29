@@ -10,7 +10,7 @@
     Current Price: 
     %span{style: 'font-weight: bold;'} MYR #{@item.final_price}
     (#{@item.bids.count} bids)
-  - unless @item.expire_date < Time.now
+  - unless @item.end_date < Time.now
     .form-group
       = form_for @bid, url: item_bids_path(@item) do |f|
         .row
@@ -21,12 +21,12 @@
           .col-sm-2.col-xs-2
             = f.submit 'Bid', class: 'btn btn-success'
   %p 
-    - if @item.expire_date > Time.now
+    - if @item.end_date > Time.now
       Time Left: 
-      %span{style: 'font-weight: bold; color: red;'} #{distance_of_time_in_words(Time.now, @item.expire_date, include_seconds: true)} 
+      %span{style: 'font-weight: bold; color: red;'} #{distance_of_time_in_words(Time.now, @item.end_date, include_seconds: true)} 
     - else
       %span{style: 'font-weight: bold; color: red;'} Ended
-    %span{style: 'font-size: 14px;'} (#{@item.expire_date.strftime('%d-%b-%y, %I.%M%P')})
+    %span{style: 'font-size: 14px;'} (#{@item.end_date.strftime('%d-%b-%y, %I.%M%P')})
   %section{style: 'margin-top: 25px;'}
     - if @item_bids.any?
       %p{style: 'font-weight: bold;'} Bids (newest first):

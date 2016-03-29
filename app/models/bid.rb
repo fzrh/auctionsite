@@ -23,7 +23,7 @@ class Bid < ActiveRecord::Base
   end
 
   def check_listing_expiry_date
-    errors.add(:amount, 'bidding has ended on this item') if self.item.expire_date < Time.now
+    errors.add(:amount, 'bidding has ended on this item') if self.item.end_date < Time.now
   end
 
   def update_item_final_price
