@@ -8,9 +8,9 @@ class ItemsController < ApplicationController
   def create
     @item = current_user.items.new(item_params)
     if @item.save
-      redirect_to @item
+      redirect_to @item, notice: 'Item created!'
     else
-      render 'new'
+      render 'new', error: 'Create failed. Try again?'
     end
   end
 
@@ -23,16 +23,16 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.save
-      redirect_to @item
+    if @item.update(item_params)
+      redirect_to @item, notice: 'Item updated!'
     else
-      render 'edit'
+      render 'edit', error: 'Update error. Try again?'
     end
   end
 
   private
   def item_params
-    params.require(:item).permit(:user_id, :title, :description, :default_image, :duration, :base_price, :status)
+    params.require(:item).permit(:user_id, :title, :description, :default_image, :duration, :base_price, :final_price, :status)
   end
 
   def set_item

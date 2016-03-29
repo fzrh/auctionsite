@@ -11,4 +11,5 @@
       %section{style: 'padding-top: 15px;'}
         - if user_signed_in?
           Signed In As: #{current_user.email}
+        = render 'alert'
       = yield
