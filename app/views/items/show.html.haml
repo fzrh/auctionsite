@@ -6,6 +6,9 @@
   %p
     Base Price:
     %span{style: 'font-weight: bold;' } MYR #{@item.base_price}
+  %p
+    Current Price: 
+    %span{style: 'font-weight: bold;' } MYR #{@item.final_price}
   .form-group
     = form_for @bid, url: item_bids_path(@item) do |f|
       .row
@@ -15,9 +18,6 @@
           = f.text_field :amount, placeholder: '1.00', class: 'form-control'
         .col-sm-2
           = f.submit 'Bid', class: 'btn btn-success'
-  %p
-    Current Price: 
-    %span{style: 'font-weight: bold;' } MYR #{@item.final_price}
   %section{style: 'margin-top: 25px;'}
     %p{style: 'font-weight: bold;'} Bids (newest first):
     - if @item_bids.any?
