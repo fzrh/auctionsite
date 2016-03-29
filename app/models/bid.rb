@@ -19,7 +19,7 @@ class Bid < ActiveRecord::Base
 
   def check_if_highest_bid
     current_bid = Bid.first
-    errors.add(:amount, 'must be higher than current bid') unless current_bid.amount < self.amount
+    errors.add(:amount, 'must be higher than current bid') unless current_bid.amount.to_i < self.amount.to_i
   end
 
   def check_listing_expiry_date
