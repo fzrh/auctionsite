@@ -1,7 +1,7 @@
 = form_for @item do |f|
   - if @item.errors.any?
     %h2
-      = pluralize(@item.errors.count, "error") 
+      = pluralize(@item.errors.count, "error")
       prohibited this item from being saved:
     %ul
       - @item.errors.full_messages.each do |msg|
@@ -15,9 +15,9 @@
     = f.text_field :description, placeholder: 'item description', class: 'form-control'
   .form-group
     = f.label :base_price
-    = f.text_field :base_price, placeholder: 'item base price', class: 'form-control'
+    = f.text_field :base_price, class: 'form-control'
   .form-group
     = f.label :end_date
-    = f.date_select :end_date, class: 'form-control'
+    = f.date_select :end_date, default: Time.now + 1.day, class: 'form-control'
   = f.submit class: 'btn btn-success'
   = link_to 'Back', root_path, class: 'btn btn-default'
