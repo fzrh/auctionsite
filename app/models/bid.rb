@@ -17,10 +17,29 @@ class Bid < ActiveRecord::Base
     end
   end
 
-  def check_if_highest_bid
-    return true unless self.item.bids.nil?
-    current_bid = Bid.first
-    errors.add(:amount, 'must be higher than current bid') unless current_bid.amount.to_i < self.amount.to_i
+  # def check_if_highest_bid
+  #   current_bid = self.item.bids.first
+  #   if self.item.base_price && current_bid.nil?
+  #     errors.add(:amount, 'must be higher than current bid') unless self.item.base_price.to_i < self.amount.to_i
+  #   elsif current_bid
+  #     errors.add(:amount, 'must be higher than current bid') unless current_bid.amount.to_i < self.amount.to_i
+  #   end
+  # end
+
+  # def check_if_highest_bid
+  #   current_bid = self.item.bids.first
+  #   return true unless current_bid.nil?
+  #   errors.add(:amount, 'must be higher than current bid') unless current_bid.amount.to_i < self.amount.to_i
+  # end
+
+  def check_if_highest_bid #puaka khaliq jaga
+    current_bid = self.item.bids.first
+    item_price = self.item.base_price
+    if current_bid && current_bid.amount.to_i > self.amount.to_i
+      errors.add(:amount, 'must be higher than current bid')
+    elsif current_bid == nil || item_price.to_i >= self.amount.to_i
+      errors.add(:amount, 'must be higher than set price')
+    end
   end
 
   def check_listing_expiry_date
