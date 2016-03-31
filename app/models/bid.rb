@@ -8,6 +8,7 @@ class Bid < ActiveRecord::Base
   validate :cannot_bid_on_self
   validate :check_if_highest_bid
   validate :check_listing_expiry_date
+  validate :cannot_bid_multiple_times
 
   after_save :update_item_final_price
 
@@ -17,25 +18,10 @@ class Bid < ActiveRecord::Base
     end
   end
 
-  # def check_if_highest_bid
-  #   current_bid = self.item.bids.first
-  #   if self.item.base_price && current_bid.nil?
-  #     errors.add(:amount, 'must be higher than current bid') unless self.item.base_price.to_i < self.amount.to_i
-  #   elsif current_bid
-  #     errors.add(:amount, 'must be higher than current bid') unless current_bid.amount.to_i < self.amount.to_i
-  #   end
-  # end
-
-  # def check_if_highest_bid
-  #   current_bid = self.item.bids.first
-  #   return true unless current_bid.nil?
-  #   errors.add(:amount, 'must be higher than current bid') unless current_bid.amount.to_i < self.amount.to_i
-  # end
-
-  def check_if_highest_bid #puaka khaliq jaga
+  def check_if_highest_bid
     current_bid = self.item.bids.first
     item_price = self.item.base_price
-    if current_bid && current_bid.amount.to_i > self.amount.to_i
+    if current_bid && current_bid.amount.to_i >= self.amount.to_i
       errors.add(:amount, 'must be higher than current bid')
     elsif current_bid == nil || item_price.to_i >= self.amount.to_i
       errors.add(:amount, 'must be higher than set price')
@@ -48,5 +34,13 @@ class Bid < ActiveRecord::Base
 
   def update_item_final_price
     self.item.update_attribute(:final_price, self.amount)
+  end
+
+  def cannot_bid_multiple_times
+    current_bid = self.item.bids.first
+    current_bidder = current_bid.user
+    if current_bid && current_bidder.email == self.user.email
+      errors.add(:amount, 'you cannot bid twice in a row')
+    end
   end
 end

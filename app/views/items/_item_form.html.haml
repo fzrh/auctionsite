@@ -18,6 +18,6 @@
     = f.text_field :base_price, class: 'form-control'
   .form-group
     = f.label :end_date
-    = f.date_select :end_date, default: Time.now + 1.day, class: 'form-control'
+    = f.datetime_select :end_date, default: Time.now + 1.day, class: 'form-control'
   = f.submit class: 'btn btn-success'
   = link_to 'Back', root_path, class: 'btn btn-default'

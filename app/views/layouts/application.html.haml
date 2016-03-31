@@ -9,6 +9,7 @@
   %body
     .container-fluid
       %section{style: 'padding-top: 15px;'}
+        = link_to 'AuctionSite', root_path, class: 'btn btn-default btn-lg'
         - if user_signed_in?
           Signed In As: #{current_user.email}
         = render 'alert'

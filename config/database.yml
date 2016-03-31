@@ -7,14 +7,14 @@ default: &default
 
 test:
   <<: *default
-  database: carbay_test
+  database: auctionsite_test
 
 development:
   <<: *default
-  database: carbay_dev
+  database: auctionsite_dev
 
 production:
   <<: *default
-  database: carbay_production
-  username: carbay
-  password: <%= ENV['CARBAY_DATABASE_PASSWORD'] %>
+  database: auctionsite_production
+  username: auctionsite
+  password: <%= ENV['auctionsite_DATABASE_PASSWORD'] %>
