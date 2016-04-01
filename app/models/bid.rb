@@ -5,20 +5,20 @@ class Bid < ActiveRecord::Base
   default_scope -> { order('bids.created_at DESC') }
 
   validates :amount, presence: true, numericality: { greater_than: 0 }
-  validate :cannot_bid_on_self
-  validate :check_if_highest_bid
-  validate :check_listing_expiry_date
-  validate :cannot_bid_multiple_times
+  validate :if_bidder_is_not_owner
+  validate :if_amount_is_greater
+  validate :if_listing_is_active
+  validate :if_bidder_is_not_current
 
   after_save :update_listing_final_price
 
-  def cannot_bid_on_self
+  def if_bidder_is_not_owner
     if user.id == listing.user.id
       errors.add(:user, 'cannot bid on own listing')
     end
   end
 
-  def check_if_highest_bid
+  def if_amount_is_greater
     current_bid = self.listing.bids.first
     listing_price = self.listing.set_price
     if current_bid && current_bid.amount.to_i >= self.amount.to_i
@@ -28,19 +28,19 @@ class Bid < ActiveRecord::Base
     end
   end
 
-  def check_listing_expiry_date
+  def if_listing_is_active
     errors.add(:amount, 'bidding has ended on this listing') if self.listing.end_date < Time.now
   end
 
-  def update_listing_final_price
-    self.listing.update_attribute(:final_price, self.amount)
-  end
-
-  def cannot_bid_multiple_times
+  def if_bidder_is_not_current
     current_bid = self.listing.bids.first
     current_bidder = current_bid.user
     if current_bid && current_bidder.email == self.user.email
       errors.add(:amount, 'you cannot bid twice in a row')
     end
+  end
+
+  def update_listing_final_price
+    self.listing.update_attribute(:final_price, self.amount)
   end
 end
