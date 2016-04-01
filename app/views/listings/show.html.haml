@@ -5,7 +5,7 @@
     %span{style: 'font-size: 14px; font-weight: bold;'} Listed by #{@listing.user.email} on #{@listing.created_at.strftime('%d-%b-%y, %I.%M%P')}
   %p
     Base Price:
-    %span{style: 'font-weight: bold;'} MYR #{@listing.base_price}
+    %span{style: 'font-weight: bold;'} MYR #{@listing.set_price}
   %p
     Current Price:
     %span{style: 'font-weight: bold;'} MYR #{@listing.final_price}

@@ -20,7 +20,7 @@ class Bid < ActiveRecord::Base
 
   def check_if_highest_bid
     current_bid = self.listing.bids.first
-    listing_price = self.listing.base_price
+    listing_price = self.listing.set_price
     if current_bid && current_bid.amount.to_i >= self.amount.to_i
       errors.add(:amount, 'must be higher than current bid')
     elsif current_bid == nil || listing_price.to_i >= self.amount.to_i

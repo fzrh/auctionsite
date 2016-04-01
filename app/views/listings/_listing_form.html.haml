@@ -14,8 +14,8 @@
     = f.label :description
     = f.text_field :description, placeholder: 'Listing description', class: 'form-control'
   .form-group
-    = f.label :base_price
-    = f.text_field :base_price, class: 'form-control'
+    = f.label :set_price
+    = f.text_field :set_price, class: 'form-control'
   .form-group
     = f.label :end_date
     = f.datetime_select :end_date, default: Time.now + 1.day, class: 'form-control'
