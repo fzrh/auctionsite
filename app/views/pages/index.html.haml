@@ -4,7 +4,7 @@
     %p Welcome to AuctionSite
     - if user_signed_in?
       = link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-warning'
-      = link_to 'List Item', new_item_path, class: 'btn btn-success'
+      = link_to 'List Listing', new_listing_path, class: 'btn btn-success'
     - else
       = link_to 'Register', new_user_registration_path, class: 'btn btn-primary'
       = link_to 'Login', new_user_session_path, class: 'btn btn-info'
@@ -13,18 +13,18 @@
     - if @current_listings.any?
       - @current_listings.in_groups_of(3) do |group|
         .row
-          - group.compact.each do |item|
+          - group.compact.each do |listing|
             .col-md-4{style: 'padding: 10px; text-align: center;'}
-              = link_to item_path(item) do
+              = link_to listing_path(listing) do
                 %article #{image_tag 'default-thumb.gif'}
-                %article{style: 'padding-top: 5px;'} #{item.title}
+                %article{style: 'padding-top: 5px;'} #{listing.title}
   %section.col-md-10.col-md-offset-1{style: 'margin-top: 25px; margin-bottom: 25px;'}
     %p{style: 'font-weight: bold;'} Expired Listings (newest first):
     - if @ended_listings.any?
       - @ended_listings.in_groups_of(3) do |group|
         .row
-          - group.compact.each do |item|
+          - group.compact.each do |listing|
             .col-md-4{style: 'padding: 10px; text-align: center;'}
-              = link_to item_path(item) do
+              = link_to listing_path(listing) do
                 %article #{image_tag 'default-thumb.gif'}
-                %article{style: 'padding-top: 5px;'} #{item.title}
+                %article{style: 'padding-top: 5px;'} #{listing.title}

@@ -1,18 +1,18 @@
-= form_for @item do |f|
-  - if @item.errors.any?
+= form_for @listing do |f|
+  - if @listing.errors.any?
     %h2
-      = pluralize(@item.errors.count, "error")
-      prohibited this item from being saved:
+      = pluralize(@listing.errors.count, "error")
+      prohibited this listing from being saved:
     %ul
-      - @item.errors.full_messages.each do |msg|
+      - @listing.errors.full_messages.each do |msg|
         %li #{msg}
 
   .form-group
     = f.label :title
-    = f.text_field :title, placeholder: 'item title', class: 'form-control'
+    = f.text_field :title, placeholder: 'Listing title', class: 'form-control'
   .form-group
     = f.label :description
-    = f.text_field :description, placeholder: 'item description', class: 'form-control'
+    = f.text_field :description, placeholder: 'Listing description', class: 'form-control'
   .form-group
     = f.label :base_price
     = f.text_field :base_price, class: 'form-control'
