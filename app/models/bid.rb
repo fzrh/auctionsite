@@ -8,7 +8,7 @@ class Bid < ActiveRecord::Base
   validate :if_bidder_is_not_owner
   validate :if_amount_is_greater
   validate :if_listing_is_active
-  validate :if_bidder_is_not_current
+  # validate :if_bidder_is_not_current
 
   after_save :update_listing_final_price
 
@@ -21,7 +21,7 @@ class Bid < ActiveRecord::Base
   def if_amount_is_greater
     current_bid = self.listing.bids.first
     listing_price = self.listing.set_price
-    if current_bid && current_bid.amount.to_i >= self.amount.to_i
+    if current_bid && current_bid.amount.to_i > self.amount.to_i
       errors.add(:amount, 'must be higher than current bid')
     elsif current_bid == nil || listing_price.to_i >= self.amount.to_i
       errors.add(:amount, 'must be higher than set price')
